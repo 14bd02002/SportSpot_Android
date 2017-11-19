@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/Tennis"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignStart="@+id/Basketball"
+        android:layout_alignTop="@+id/Hockey"
+        app:srcCompat="@drawable/messi" />
+
+    <ImageButton
+        android:id="@+id/Hockey"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="41dp"
+        app:srcCompat="@drawable/messi"
+        android:layout_below="@+id/Football"
+        android:layout_alignStart="@+id/Football" />
+
+    <ImageButton
+        android:id="@+id/Basketball"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/messi"
+        android:layout_above="@+id/Hockey"
+        android:layout_toEndOf="@+id/Football"
+        android:layout_marginStart="25dp" />
+
+    <ImageButton
+        android:id="@+id/Football"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="19dp"
+        android:elevation="0dp"
+        app:srcCompat="@drawable/football" />
+</RelativeLayout>

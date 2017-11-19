@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="E:\Chrome\Downloads\myapp\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="18dac9b5e0503ac4239648a7ce5b941aab78dd79">
+        <dex dex="E:\Chrome\Downloads\myapp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_4391e5b5236cf58f5fd13a78315026aa1e7e0212\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Chrome\Downloads\myapp\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="E:\Chrome\Downloads\myapp\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_b1d7f4d6ca7bc3ec35c34a9fb18acd6c59ce9d6d\classes.dex" />
+    </item>
+
+</items>
