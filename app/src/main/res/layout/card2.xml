@@ -9,14 +9,16 @@
         android:layout_height="150dp"
         android:layout_alignStart="@+id/Basketball"
         android:layout_alignTop="@+id/Hockey"
-        app:srcCompat="@drawable/messi" />
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/tennis" />
 
     <ImageButton
         android:id="@+id/Hockey"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="41dp"
-        app:srcCompat="@drawable/messi"
+        app:srcCompat="@drawable/hockey"
+        android:scaleType="fitXY"
         android:layout_below="@+id/Football"
         android:layout_alignStart="@+id/Football" />
 
@@ -24,8 +26,9 @@
         android:id="@+id/Basketball"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:srcCompat="@drawable/messi"
+        app:srcCompat="@drawable/basket"
         android:layout_above="@+id/Hockey"
+        android:scaleType="fitXY"
         android:layout_toEndOf="@+id/Football"
         android:layout_marginStart="25dp" />
 
@@ -37,6 +40,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="27dp"
         android:layout_marginTop="19dp"
+        android:scaleType="fitXY"
         android:elevation="0dp"
         app:srcCompat="@drawable/football" />
+
 </RelativeLayout>
