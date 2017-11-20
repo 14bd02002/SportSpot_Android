@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#90CAF9">
 
     <ImageButton
         android:id="@+id/Tennis"
@@ -10,6 +11,7 @@
         android:layout_alignStart="@+id/Basketball"
         android:layout_alignTop="@+id/Hockey"
         android:scaleType="fitXY"
+        android:background="#0000"
         app:srcCompat="@drawable/tennis" />
 
     <ImageButton
@@ -19,6 +21,7 @@
         android:layout_marginTop="41dp"
         app:srcCompat="@drawable/hockey"
         android:scaleType="fitXY"
+        android:background="#0000"
         android:layout_below="@+id/Football"
         android:layout_alignStart="@+id/Football" />
 
@@ -30,18 +33,32 @@
         android:layout_above="@+id/Hockey"
         android:scaleType="fitXY"
         android:layout_toEndOf="@+id/Football"
+        android:background="#0000"
         android:layout_marginStart="25dp" />
 
     <ImageButton
         android:id="@+id/Football"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginStart="31dp"
         android:scaleType="fitXY"
         android:elevation="0dp"
-        app:srcCompat="@drawable/football" />
+        app:srcCompat="@drawable/football"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView2"
+        android:background="#0000"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="italic|bold"
+        android:text="Categories"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

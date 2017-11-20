@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "141415876051",
+    "firebase_url": "https://sportspot-d356e.firebaseio.com",
+    "project_id": "sportspot-d356e",
+    "storage_bucket": "sportspot-d356e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141415876051:android:0ad486111df5da98",
+        "android_client_info": {
+          "package_name": "dias.newsapphttp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141415876051-mafmfp75jthr77s0fjplhak3e1dlb7k1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu53wgtLJE-6ywwXVAbGKw_spz9I2b6K4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
