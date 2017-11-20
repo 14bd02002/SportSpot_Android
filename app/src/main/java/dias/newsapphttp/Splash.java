@@ -13,7 +13,7 @@ import android.os.Handler;
 public class Splash extends Activity {
 
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 1500;
+    private final int SPLASH_DISPLAY_LENGTH = 3000;
 
     /** Called when the activity is first created. */
     @Override
@@ -27,7 +27,7 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(Splash.this,MainActivity.class);
+                Intent mainIntent = new Intent(Splash.this,Registration.class);
                 Splash.this.startActivity(mainIntent);
                 Splash.this.finish();
             }

@@ -1,6 +1,7 @@
 package dias.newsapphttp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,11 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser() != null){
+            //To main activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        }
         progressDialog = new ProgressDialog(this);
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -81,6 +87,10 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             //user logged in, start the profile activity here
                             //display toast
                             Toast.makeText(Registration.this, "Signed up!", Toast.LENGTH_SHORT).show();
+
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+
                         }else {
                             Toast.makeText(Registration.this, "Cant not sign up! Try Again...", Toast.LENGTH_SHORT).show();
 
@@ -99,6 +109,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
         if(view == textViewSignin){
             //will open login activity
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 }
