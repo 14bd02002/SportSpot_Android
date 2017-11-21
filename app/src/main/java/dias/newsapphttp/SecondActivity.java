@@ -20,11 +20,20 @@ public class SecondActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton thumbDown = (FloatingActionButton) findViewById(R.id.thumbDown);
+        FloatingActionButton thumbUp = (FloatingActionButton) findViewById(R.id.thumbUp);
+
+        thumbDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "You unliked the post", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        thumbUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "You liked the post", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -46,4 +55,5 @@ public class SecondActivity extends AppCompatActivity {
         newsContent.setText(content);
 
     }
+
 }

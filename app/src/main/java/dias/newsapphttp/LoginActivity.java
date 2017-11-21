@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         }
-        progressDialog.setMessage("Signing up...");
+        progressDialog.setMessage("Signing in...");
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -83,6 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
 
+                    }
+                    else {
+                        Toast.makeText(getBaseContext() , "Wrong Email or Password", Toast.LENGTH_SHORT).show();
                     }
                 }
             })
