@@ -37,7 +37,6 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:layout_margin="20dp"
-
         android:hint="Enter password"
         android:layout_marginBottom="10dp"/>
 

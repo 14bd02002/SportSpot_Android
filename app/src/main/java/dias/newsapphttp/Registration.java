@@ -44,7 +44,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         if(firebaseAuth.getCurrentUser() != null){
             //To main activity
             finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
         progressDialog = new ProgressDialog(this);
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
@@ -89,7 +89,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(Registration.this, "Signed up!", Toast.LENGTH_SHORT).show();
 
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }else {
                             Toast.makeText(Registration.this, "Cant not sign up! Try Again...", Toast.LENGTH_SHORT).show();
