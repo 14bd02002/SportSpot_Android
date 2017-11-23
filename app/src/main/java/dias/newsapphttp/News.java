@@ -1,62 +1,46 @@
 package dias.newsapphttp;
 
-import android.arch.persistence.room.Ignore;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by 1 on 23.11.2017.
+ */
 
 public class News {
-    @SerializedName("title")
-    @Expose
-    private String title;
 
-    @SerializedName("content")
-    @Expose
-    private String content;
-
-    @SerializedName("imagePath")
-    @Expose
-    private String imagePath;
-
-    @SerializedName("date")
-    @Expose
-    private String date;
-
+    private String title, desc, image, date ;
 
     public News(){
 
     }
 
-    @Ignore
-    public News(String title, String content, String imagePath, String date) {
+    public News(String title, String desc, String image, String date) {
         this.title = title;
-        this.content = content;
-        this.imagePath = imagePath;
+        this.desc = desc;
+        this.image = image;
         this.date = date;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getContent() {
-        return content;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public String getDesc() {
+        return desc;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getDate() {
@@ -67,4 +51,3 @@ public class News {
         this.date = date;
     }
 }
-

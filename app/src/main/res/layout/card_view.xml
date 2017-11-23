@@ -19,12 +19,13 @@
             android:id="@+id/img_holder"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
+            app:srcCompat="@drawable/basket" />
 
         <LinearLayout
             android:layout_width="wrap_content"
