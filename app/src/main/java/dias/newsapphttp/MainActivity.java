@@ -11,14 +11,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -29,8 +32,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView textLogout;
     RecyclerView mNewsList;
     DatabaseReference mDatabase;
+    boolean mProcessLike = false;
+    DatabaseReference mDatabaseLike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNewsList.setHasFixedSize(true);
         mNewsList.setLayoutManager(new LinearLayoutManager(this));
         mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
+        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+
+        mDatabaseLike.keepSynced(true);
 
 
         //FIREBASE LOGOUT + USER
@@ -93,10 +103,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ) {
             @Override
-            protected void populateViewHolder(NewsViewHolder viewHolder, News model, int position) {
+            protected void populateViewHolder(NewsViewHolder viewHolder, final News model, int position) {
+
+                final String news_key = getRef(position).getKey();
+
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDesc());
                 viewHolder.setImage(getApplicationContext(), model.getImage());
+
+                viewHolder.setLikeBtn(news_key);
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(MainActivity.this, news_key, Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        mProcessLike = true;
+
+
+                            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                                    if(mProcessLike) {
+                                        if (dataSnapshot.child(news_key).hasChild(firebaseAuth.getCurrentUser().getUid())) {
+                                            mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).removeValue();
+                                            mProcessLike = false;
+
+
+                                        } else {
+                                            mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).setValue("RandomValue");
+                                            mProcessLike = false;
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                    }
+                });
 
             }
         };
@@ -107,9 +161,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder{
         View mView;
+
+        ImageButton mLikebtn;
+
+        DatabaseReference mDatabaseLike;
+        FirebaseAuth firebaseAuth;
+
         public NewsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+
+            mLikebtn = (ImageButton) mView.findViewById(R.id.like_btn);
+            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+            firebaseAuth = FirebaseAuth.getInstance();
+            mDatabaseLike.keepSynced(true);
+
+        }
+        public void setLikeBtn(final String news_key){
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(news_key).hasChild(firebaseAuth.getCurrentUser().getUid())){
+                        mLikebtn.setImageResource(R.drawable.heart);
+                    }
+                    else {
+                        mLikebtn.setImageResource(R.drawable.heart_gray);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
         public void setTitle(String title){
             TextView news_title = (TextView) mView.findViewById(R.id.news_title);
@@ -150,6 +237,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(item.getItemId()== R.id.action_add){
             startActivity(new Intent(MainActivity.this, PostActivity.class));
+        }
+        if(item.getItemId()==R.id.action_logout){
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -91,6 +91,7 @@ public class PostActivity extends AppCompatActivity {
                     newPost.child("date").setValue(date_val);
 
 
+
                     mProgress.dismiss();
                     startActivity(new Intent(PostActivity.this, MainActivity.class));
                 }

@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +32,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
      EditText editTextEmail;
      EditText editTextPassword;
      TextView textViewSignin;
+     DatabaseReference mDatabase;
 
      ProgressDialog progressDialog;
      FirebaseAuth firebaseAuth;
@@ -50,8 +53,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         buttonRegister.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
@@ -61,7 +64,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     }
 
     public void registerUser(){
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
@@ -70,7 +73,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             return;
 
         }
-        if(TextUtils.isEmpty(password)){
+        if(TextUtils.isEmpty(password) ){
             //password empty
             Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
             return;
@@ -87,7 +90,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             //user logged in, start the profile activity here
                             //display toast
                             Toast.makeText(Registration.this, "Signed up!", Toast.LENGTH_SHORT).show();
-
+                                String user_id = firebaseAuth.getCurrentUser().getUid();
+                                DatabaseReference current_user_db = mDatabase.child(user_id);
+                                current_user_db.child("email").setValue(email);
                                 finish();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
 

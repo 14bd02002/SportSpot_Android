@@ -6,4 +6,9 @@
         android:id="@+id/action_add"
         android:icon="@mipmap/ic_add_white_24dp"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="Log Out"
+        app:showAsAction="never" />
 </menu>
