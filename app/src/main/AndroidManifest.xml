@@ -3,12 +3,8 @@
     package="dias.newsapphttp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
-
-
-
 
     <application
         android:allowBackup="true"
@@ -58,7 +54,8 @@
             android:name=".SecondActivity"
             android:label="@string/title_activity_second"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".PostActivity" />
+        <activity android:name=".NewsSingleActivity"></activity>
     </application>
 
 </manifest>

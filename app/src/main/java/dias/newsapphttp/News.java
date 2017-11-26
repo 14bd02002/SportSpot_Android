@@ -6,7 +6,7 @@ package dias.newsapphttp;
 
 public class News {
 
-    private String title, desc, image, date ;
+    private String title, desc, image, date;
 
     public News(){
 
@@ -17,6 +17,7 @@ public class News {
         this.desc = desc;
         this.image = image;
         this.date = date;
+
     }
 
     public String getTitle() {

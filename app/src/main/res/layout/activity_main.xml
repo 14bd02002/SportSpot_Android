@@ -19,25 +19,34 @@
 
         <TextView
             android:id="@+id/textViewUserEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.91"
+            android:layout_weight="0.73"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
-            android:textSize="17dp"
-            android:textStyle="italic|bold"
+            android:text="Hello user!"
             android:textColor="@android:color/white"
-            android:text="Hello user!" />
+            android:textSize="17dp"
+            android:textStyle="italic|bold" />
+
+        <ImageButton
+            android:id="@+id/action_add"
+            android:layout_width="33dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:visibility="invisible"
+            app:srcCompat="@mipmap/ic_add_white_24dp" />
 
         <TextView
             android:id="@+id/textLogout"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-
+            android:layout_marginLeft="0dp"
             android:layout_weight="0.10"
+            android:paddingRight="10dp"
+
+            android:paddingTop="5dp"
             android:text="LOG OUT"
             android:textColor="@android:color/white"
             android:textStyle="italic|bold" />
@@ -60,7 +69,9 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/news_list">
+            android:id="@+id/news_list"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
 
         </android.support.v7.widget.RecyclerView>
 

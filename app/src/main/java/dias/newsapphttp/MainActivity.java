@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseReference mDatabase;
     boolean mProcessLike = false;
     DatabaseReference mDatabaseLike;
+    ImageButton actionAdd;
+    String admin = "dias@mail.ru";
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
 
+
         mDatabaseLike.keepSynced(true);
+
 
 
         //FIREBASE LOGOUT + USER
@@ -76,6 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        //ADD BUTTON SHOW FOR ADMIN
+        actionAdd = (ImageButton) findViewById(R.id.action_add);
+        if(user.getEmail().equals(admin)){
+
+            actionAdd.setVisibility(View.VISIBLE);
+        }
 
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
@@ -84,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textLogout = (TextView) findViewById(R.id.textLogout);
 
         textLogout.setOnClickListener(this);
+        actionAdd.setOnClickListener(this);
 
 
 
@@ -116,7 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 viewHolder.mView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(MainActivity.this, news_key, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(MainActivity.this, news_key, Toast.LENGTH_LONG).show();
+                        //Giving ID of news to new activity
+                        Intent singleNewsIntent = new Intent(MainActivity.this, NewsSingleActivity.class);
+                        singleNewsIntent.putExtra("news_id", news_key);
+                        startActivity(singleNewsIntent);
                     }
                 });
 
@@ -221,6 +240,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+        if(view == actionAdd){
+
+            startActivity( new Intent(this, PostActivity.class));
+        }
 
 
     }
@@ -230,6 +253,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
+
+
     }
 
     @Override
