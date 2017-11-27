@@ -33,7 +33,7 @@ public class NewsSingleActivity extends AppCompatActivity {
     TextView mNewsSingleDate;
     Button mSingleRemoveBtn;
     FirebaseAuth firebaseAuth;
-    String admin = "dias@mail.ru";
+    String admin = "dias@gmail.com";
 
 
 //    //Likes

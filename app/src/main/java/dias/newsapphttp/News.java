@@ -6,17 +6,18 @@ package dias.newsapphttp;
 
 public class News {
 
-    private String title, desc, image, date;
+    private String title, desc, image, date, name;
 
     public News(){
 
     }
 
-    public News(String title, String desc, String image, String date) {
+    public News(String title, String desc, String image, String date, String name) {
         this.title = title;
         this.desc = desc;
         this.image = image;
         this.date = date;
+        this.name = name;
 
     }
 
@@ -50,5 +51,13 @@ public class News {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

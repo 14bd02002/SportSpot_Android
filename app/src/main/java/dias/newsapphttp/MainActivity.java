@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean mProcessLike = false;
     DatabaseReference mDatabaseLike;
     ImageButton actionAdd;
-    String admin = "dias@mail.ru";
+    String admin = "dias@gmail.com";
+    //reverse order
+    LinearLayoutManager mLayoutManager;
+    RecyclerView.Adapter mAdapter;
 
 
 
@@ -70,10 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
 
-
         mDatabaseLike.keepSynced(true);
-
-
 
         //FIREBASE LOGOUT + USER
         firebaseAuth = FirebaseAuth.getInstance();
@@ -91,14 +91,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             actionAdd.setVisibility(View.VISIBLE);
         }
 
-
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-
+        //КАК СДЕЛАТЬ ПО НЕЙМУ?
         textViewUserEmail.setText("Welcome " + " " + user.getEmail());
         textLogout = (TextView) findViewById(R.id.textLogout);
 
         textLogout.setOnClickListener(this);
         actionAdd.setOnClickListener(this);
+        //REVERSE ORDER LAYOUT
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        mNewsList.setLayoutManager(mLayoutManager);
+        mNewsList.setAdapter(mAdapter);
+
+
 
 
 

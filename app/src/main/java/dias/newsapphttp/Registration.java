@@ -31,6 +31,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
      Button buttonRegister;
      EditText editTextEmail;
      EditText editTextPassword;
+     EditText editTextName;
      TextView textViewSignin;
      DatabaseReference mDatabase;
 
@@ -53,6 +54,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextName = (EditText) findViewById(R.id.editTextName);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -66,16 +68,23 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     public void registerUser(){
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        final String name = editTextName.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
             //email empty
-            Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter Email!", Toast.LENGTH_SHORT).show();
             return;
 
         }
         if(TextUtils.isEmpty(password) ){
             //password empty
-            Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter Password!", Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        if(TextUtils.isEmpty(name) ){
+            //password empty
+            Toast.makeText(this, "Enter your name!", Toast.LENGTH_SHORT).show();
             return;
 
 
@@ -93,7 +102,9 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                                 String user_id = firebaseAuth.getCurrentUser().getUid();
                                 DatabaseReference current_user_db = mDatabase.child(user_id);
                                 current_user_db.child("email").setValue(email);
-                                finish();
+                                current_user_db.child("name").setValue(name);
+
+                            finish();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }else {
