@@ -8,16 +8,20 @@ public class News {
 
     private String title, desc, image, date, name;
 
+    private int likes;
+
     public News(){
 
     }
 
-    public News(String title, String desc, String image, String date, String name) {
+
+    public News(String title, String desc, String image, String date, String name, int likes) {
         this.title = title;
         this.desc = desc;
         this.image = image;
         this.date = date;
         this.name = name;
+        this.likes = likes;
 
     }
 
@@ -60,4 +64,10 @@ public class News {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getLikes() { return likes; }
+
+    public void setLikes(int likes) { this.likes = likes; }
+
+
 }

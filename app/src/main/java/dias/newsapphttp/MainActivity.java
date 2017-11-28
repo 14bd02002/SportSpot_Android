@@ -35,8 +35,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //reverse order
     LinearLayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
+
+
+
+
 
 
 
@@ -108,8 +116,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-
     }
 
     @Override
@@ -121,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 NewsViewHolder.class,
                 mDatabase
 
-
-
         ) {
             @Override
             protected void populateViewHolder(NewsViewHolder viewHolder, final News model, int position) {
@@ -132,10 +136,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDesc());
                 viewHolder.setImage(getApplicationContext(), model.getImage());
+                //Likes number display
+                //!!
+                viewHolder.setLikes(model.getLikes());
 
                 viewHolder.setLikeBtn(news_key);
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener(){
+
                     @Override
                     public void onClick(View view) {
                         //Toast.makeText(MainActivity.this, news_key, Toast.LENGTH_LONG).show();
@@ -146,24 +154,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
 
+
+
+
                 viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         mProcessLike = true;
 
-
                             mDatabaseLike.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
                                     if(mProcessLike) {
                                         if (dataSnapshot.child(news_key).hasChild(firebaseAuth.getCurrentUser().getUid())) {
+
+                                            mDatabase.child(news_key).child("likes").setValue(-1);
                                             mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).removeValue();
                                             mProcessLike = false;
 
 
                                         } else {
-                                            mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).setValue("RandomValue");
+                                            mDatabase.child(news_key).child("likes").setValue(+1);
+                                            mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).setValue(+1);
                                             mProcessLike = false;
                                         }
                                     }
@@ -174,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 }
                             });
+
 
                     }
                 });
@@ -189,15 +204,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View mView;
 
         ImageButton mLikebtn;
-
+        DatabaseReference mDatabase;
         DatabaseReference mDatabaseLike;
         FirebaseAuth firebaseAuth;
+        TextView mNewsLikes;
 
         public NewsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
 
             mLikebtn = (ImageButton) mView.findViewById(R.id.like_btn);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("News").child("likes");
             mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
             firebaseAuth = FirebaseAuth.getInstance();
             mDatabaseLike.keepSynced(true);
@@ -209,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     if(dataSnapshot.child(news_key).hasChild(firebaseAuth.getCurrentUser().getUid())){
                         mLikebtn.setImageResource(R.drawable.heart);
+
                     }
                     else {
                         mLikebtn.setImageResource(R.drawable.heart_gray);
@@ -223,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
 
+
         }
         public void setTitle(String title){
             TextView news_title = (TextView) mView.findViewById(R.id.news_title);
@@ -235,9 +254,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         public void setImage(Context ctx, String image){
-            ImageView post_image = (ImageView )mView.findViewById(R.id.news_image);
-            Picasso.with(ctx).load(image).into(post_image);
+            ImageView news_image = (ImageView )mView.findViewById(R.id.news_image);
+            Picasso.with(ctx).load(image).into(news_image);
         }
+        //LIKES SETLIKES
+        //
+        //!!!
+        public void setLikes(int likes){
+            TextView news_likes = (TextView) mView.findViewById(R.id.news_likes);
+            news_likes.setText(String.valueOf(likes));
+        }
+
+
 
 
     }
@@ -262,7 +290,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onCreateOptionsMenu(menu);
 
 
+
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

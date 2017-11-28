@@ -71,7 +71,7 @@ public class PostActivity extends AppCompatActivity {
     }
     private void startPosting() {
 
-        mProgress.setMessage("Posting to news...");
+        mProgress.setMessage("Posting...");
         
         final String title_val = mPostTitle.getText().toString().trim();
         final String desc_val = mPostDesc.getText().toString().trim();
