@@ -170,13 +170,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     if(mProcessLike) {
                                         if (dataSnapshot.child(news_key).hasChild(firebaseAuth.getCurrentUser().getUid())) {
 
-                                            mDatabase.child(news_key).child("likes").setValue(-1);
+                                            mDatabase.child(news_key).child("likes").setValue(model.getLikes()-1);
                                             mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).removeValue();
                                             mProcessLike = false;
 
 
                                         } else {
-                                            mDatabase.child(news_key).child("likes").setValue(+1);
+                                            mDatabase.child(news_key).child("likes").setValue(model.getLikes()+1);
                                             mDatabaseLike.child(news_key).child(firebaseAuth.getCurrentUser().getUid()).setValue(+1);
                                             mProcessLike = false;
                                         }

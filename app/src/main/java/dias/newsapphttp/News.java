@@ -1,5 +1,7 @@
 package dias.newsapphttp;
 
+import java.util.Date;
+
 /**
  * Created by 1 on 23.11.2017.
  */
@@ -22,6 +24,7 @@ public class News {
         this.date = date;
         this.name = name;
         this.likes = likes;
+
 
     }
 
@@ -68,6 +71,12 @@ public class News {
     public int getLikes() { return likes; }
 
     public void setLikes(int likes) { this.likes = likes; }
+
+
+
+
+
+
 
 
 }
