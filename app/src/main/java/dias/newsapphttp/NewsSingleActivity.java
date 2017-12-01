@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,42 +43,11 @@ public class NewsSingleActivity extends AppCompatActivity {
     FloatingActionButton mSingleRemoveBtn;
     FirebaseAuth firebaseAuth;
     String admin = "dias@gmail.com";
-//    TextView MessageText;
-//    TextView MessageUser;
-//    TextView MessageDate;
+    TextView message_user;
     private FirebaseListAdapter<ChatMessage> adapter;
-
-//    //Likes
-//    ImageButton mNewsSingleLike;
-//    DatabaseReference mDatabaseLike;
-//    FirebaseAuth firebaseAuth;
-//    boolean mProcessLike = false;
-//    String news_key;
-//
-//    public void setLikeBtn(final String news_key){
-//        mDatabaseLike.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.child(news_key).hasChild(firebaseAuth.getCurrentUser().getUid())){
-//                    mNewsSingleLike.setImageResource(R.drawable.heart);
-//                }
-//                else {
-//                    mNewsSingleLike.setImageResource(R.drawable.heart_gray);
-//
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
-
-
-
+    //For users
+    FirebaseUser firebaseUser;
+    DatabaseReference mDatabaseUser;
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +56,7 @@ public class NewsSingleActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_news_single);
 
-
+            //GET UID OF USER
 
             mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
             //remove news
@@ -99,14 +69,20 @@ public class NewsSingleActivity extends AppCompatActivity {
             mNewsSingleDate = (TextView) findViewById(R.id.singleNewsDate);
 
 
-        //check login
-        firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() == null){
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
-        }
+                //check login
+            firebaseAuth = FirebaseAuth.getInstance();
+            if(firebaseAuth.getCurrentUser() == null){
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
+            }
 
-        //chat comment
+//            //Get User
+//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//            TextView message_user = (TextView)findViewById(R.id.message_user);
+//            message_user.setText(firebaseUser.getEmail());
+
+
+            //chat comment
 
             mDatabaseComments = FirebaseDatabase.getInstance().getReference().child("News").child("Messages");
             displayChatMessages();
@@ -118,7 +94,7 @@ public class NewsSingleActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     EditText input = (EditText)findViewById(R.id.input);
                     Toast.makeText(NewsSingleActivity.this, mNews_key, Toast.LENGTH_LONG).show();
-
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
 
                     // Read the input field and push a new instance
                     // of ChatMessage to the Firebase database
@@ -127,9 +103,7 @@ public class NewsSingleActivity extends AppCompatActivity {
                             .child("Messages")
                             .push()
                             .setValue(new ChatMessage(input.getText().toString(),
-                                    FirebaseAuth.getInstance()
-                                            .getCurrentUser()
-                                            .getDisplayName())
+                                    user.getEmail())
                             );
 
                     // Clear the input

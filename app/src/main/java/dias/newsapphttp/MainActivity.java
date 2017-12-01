@@ -64,13 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView.Adapter mAdapter;
 
 
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         //КАК СДЕЛАТЬ ПО НЕЙМУ?
-        textViewUserEmail.setText("Welcome " + " " + user.getEmail());
+        textViewUserEmail.setText("Welcome " + " " + FirebaseAuth.getInstance()
+                .getCurrentUser()
+                .getDisplayName());
         textLogout = (TextView) findViewById(R.id.textLogout);
 
         textLogout.setOnClickListener(this);

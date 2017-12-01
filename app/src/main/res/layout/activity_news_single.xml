@@ -3,7 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:fadingEdgeLength="0dp"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -47,17 +51,17 @@
             android:layout_below="@+id/singleNewsTitle"
             android:layout_alignParentStart="true" />
 
-        <ImageButton
-            android:id="@+id/singleLikeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/singleNewsDesc"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            android:cropToPadding="true"
-            app:srcCompat="@drawable/heart" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/singleLikeButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_below="@+id/singleNewsDesc"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:cropToPadding="true"-->
+            <!--app:srcCompat="@drawable/heart" />-->
 
         <TextView
             android:id="@+id/singleNewsDate"
@@ -69,12 +73,12 @@
             android:layout_marginTop="20dp"
             android:text="17/12/17" />
 
-        <ListView
+        <dias.newsapphttp.NonScrollListView
             android:id="@+id/list_of_messages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/singleLikeButton"
+            android:layout_below="@+id/singleNewsDate"
             android:layout_marginTop="15dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="16dp" />
