@@ -1,5 +1,6 @@
 package dias.newsapphttp;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,34 +76,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNewsList.setLayoutManager(new LinearLayoutManager(this));
         mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
-
         mDatabaseLike.keepSynced(true);
+
 
         //FIREBASE LOGOUT + USER
         firebaseAuth = FirebaseAuth.getInstance();
-
         if(firebaseAuth.getCurrentUser() == null){
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
         //ADD BUTTON SHOW FOR ADMIN
         actionAdd = (ImageButton) findViewById(R.id.action_add);
         if(user.getEmail().equals(admin)){
-
             actionAdd.setVisibility(View.VISIBLE);
         }
-
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         //КАК СДЕЛАТЬ ПО НЕЙМУ?
-        textViewUserEmail.setText("Welcome " + " " + FirebaseAuth.getInstance()
-                .getCurrentUser()
-                .getDisplayName());
+        textViewUserEmail.setText("Welcome " + " " + user.getEmail());
         textLogout = (TextView) findViewById(R.id.textLogout);
 
         textLogout.setOnClickListener(this);
         actionAdd.setOnClickListener(this);
+
         //REVERSE ORDER LAYOUT
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);

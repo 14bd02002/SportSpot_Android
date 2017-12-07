@@ -48,26 +48,29 @@ public class NewsSingleActivity extends AppCompatActivity {
     //For users
     FirebaseUser firebaseUser;
     DatabaseReference mDatabaseUser;
+    //Back button
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_news_single);
 
+            //Back button
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             //GET UID OF USER
-
             mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
             //remove news
             firebaseAuth = FirebaseAuth.getInstance();
             mSingleRemoveBtn = (FloatingActionButton) findViewById(R.id.singleRemoveBtn);
-
             mNewsSingleDesc = (TextView) findViewById(R.id.singleNewsDesc);
             mNewsSingleImage = (ImageView) findViewById(R.id.singleNewsImage);
             mNewsSingleTitle = (TextView) findViewById(R.id.singleNewsTitle);
             mNewsSingleDate = (TextView) findViewById(R.id.singleNewsDate);
-
 
                 //check login
             firebaseAuth = FirebaseAuth.getInstance();
@@ -201,6 +204,7 @@ public class NewsSingleActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mDatabase.child(mNews_key).removeValue();
                 Intent mainIntent = new Intent(NewsSingleActivity.this, MainActivity.class);
+                finish();
                 startActivity(mainIntent);
             }
         });
