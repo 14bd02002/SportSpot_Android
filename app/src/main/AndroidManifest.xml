@@ -51,7 +51,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PostActivity" />
-        <activity android:name=".NewsSingleActivity"></activity>
+        <activity android:name=".NewsSingleActivity" />
+        <activity android:name=".CategoriesActivity"></activity>
     </application>
 
 </manifest>

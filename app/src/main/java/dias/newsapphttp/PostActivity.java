@@ -30,12 +30,19 @@ public class PostActivity extends AppCompatActivity {
     EditText mPostDesc;
     Button mSubmitBtn;
     EditText mPostDate;
+    EditText mPostCategory;
     Uri mImageUri = null;
     public static final int GALLERY_REQUEST = 1;
     public StorageReference mStorage;
     DatabaseReference mDatabase;
     ProgressDialog mProgress;
     public static final int PERMISSIONS_REQUEST_READ_STORAGE = 100;
+    //database for basket category
+    DatabaseReference mDatabaseBasket;
+    String basketString = "basket";
+    //database for football category
+    DatabaseReference mDatabaseFootball;
+    String footballString = "football";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +53,12 @@ public class PostActivity extends AppCompatActivity {
         mSelectImage = (ImageButton) findViewById(R.id.imageSelect);
         mPostTitle = (EditText) findViewById(R.id.titleField);
         mPostDesc = (EditText) findViewById(R.id.descField);
+        mPostCategory = (EditText) findViewById(R.id.category);
         mSubmitBtn = (Button) findViewById(R.id.submitButton);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("News");
+        mDatabaseBasket = FirebaseDatabase.getInstance().getReference().child("NewsBasket");
+        mDatabaseFootball = FirebaseDatabase.getInstance().getReference().child("NewsFootball");
+
         mProgress = new ProgressDialog(this);
         //storage
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSIONS_REQUEST_READ_STORAGE);
@@ -76,6 +87,7 @@ public class PostActivity extends AppCompatActivity {
         final String title_val = mPostTitle.getText().toString().trim();
         final String desc_val = mPostDesc.getText().toString().trim();
         final String date_val = mPostDate.getText().toString().trim();
+        final String category_val = mPostCategory.getText().toString().trim();
         //no empty values and image
         if(!TextUtils.isEmpty(title_val) &&  !TextUtils.isEmpty(desc_val) && !TextUtils.isEmpty(date_val)&& mImageUri != null){
             mProgress.show();
@@ -92,6 +104,45 @@ public class PostActivity extends AppCompatActivity {
 
 
 
+                    mProgress.dismiss();
+                    finish();
+                    startActivity(new Intent(PostActivity.this, MainActivity.class));
+                }
+            });
+        }
+        //pushing info to basket database
+        if(!TextUtils.isEmpty(title_val) &&  !TextUtils.isEmpty(desc_val) && !TextUtils.isEmpty(date_val)&& mImageUri != null && category_val.equals(basketString)){
+            mProgress.show();
+            StorageReference filepath = mStorage.child("News_Images").child(mImageUri.getLastPathSegment());
+            filepath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    DatabaseReference newPost  = mDatabaseBasket.push();
+                    newPost.child("title").setValue(title_val);
+                    newPost.child("desc").setValue(desc_val);
+                    newPost.child("image").setValue(downloadUrl.toString());
+                    newPost.child("date").setValue(date_val);
+                    newPost.child("category").setValue(date_val);
+                    mProgress.dismiss();
+                    finish();
+                    startActivity(new Intent(PostActivity.this, MainActivity.class));
+                }
+            });
+        }
+        if(!TextUtils.isEmpty(title_val) &&  !TextUtils.isEmpty(desc_val) && !TextUtils.isEmpty(date_val)&& mImageUri != null && category_val.equals(footballString)){
+            mProgress.show();
+            StorageReference filepath = mStorage.child("News_Images").child(mImageUri.getLastPathSegment());
+            filepath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    DatabaseReference newPost  = mDatabaseFootball.push();
+                    newPost.child("title").setValue(title_val);
+                    newPost.child("desc").setValue(desc_val);
+                    newPost.child("image").setValue(downloadUrl.toString());
+                    newPost.child("date").setValue(date_val);
+                    newPost.child("category").setValue(date_val);
                     mProgress.dismiss();
                     finish();
                     startActivity(new Intent(PostActivity.this, MainActivity.class));

@@ -64,4 +64,14 @@
         android:hint="Add date"
         android:layout_below="@+id/descField"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/dateField"
+        android:layout_below="@+id/dateField"
+        android:ems="10"
+        android:hint="Add category"
+        android:inputType="textPersonName" />
 </RelativeLayout>

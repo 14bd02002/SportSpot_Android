@@ -48,14 +48,14 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.http.POST;
+
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     FirebaseAuth firebaseAuth;
     TextView textViewUserEmail;
-    TextView textLogout;
+    TextView categoriesText;
     RecyclerView mNewsList;
     DatabaseReference mDatabase;
     boolean mProcessLike = false;
@@ -91,13 +91,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(user.getEmail().equals(admin)){
             actionAdd.setVisibility(View.VISIBLE);
         }
+
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         //КАК СДЕЛАТЬ ПО НЕЙМУ?
         textViewUserEmail.setText("Welcome " + " " + user.getEmail());
-        textLogout = (TextView) findViewById(R.id.textLogout);
 
-        textLogout.setOnClickListener(this);
         actionAdd.setOnClickListener(this);
+        //categories text
+        categoriesText = (TextView) findViewById(R.id.categoriesText);
+        categoriesText.setOnClickListener(this);
 
         //REVERSE ORDER LAYOUT
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -263,10 +265,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     public void onClick(View view) {
-        if(view == textLogout){
-            firebaseAuth.signOut();
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
+        if(view == categoriesText){
+
+            startActivity(new Intent(this, CategoriesActivity.class));
         }
         if(view == actionAdd){
 
